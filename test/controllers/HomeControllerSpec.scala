@@ -3,6 +3,7 @@ package controllers
 import baseSpec.BaseSpec
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.matchers.must.Matchers.convertToAnyMustWrapper
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.ControllerComponents
 import play.api.test.Helpers._
 import play.api.test._
@@ -13,7 +14,7 @@ import play.api.test._
  *
  * For more information, see https://www.playframework.com/documentation/latest/ScalaTestingWithScalaTest
  */
-class HomeControllerSpec extends BaseSpec with MockFactory with Injecting {
+class HomeControllerSpec extends BaseSpec with MockFactory with Injecting with GuiceOneAppPerSuite {
 
   val controllerComponents: ControllerComponents = Helpers.stubControllerComponents()
 

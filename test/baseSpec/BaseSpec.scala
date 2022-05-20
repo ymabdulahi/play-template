@@ -1,6 +1,7 @@
 package baseSpec
 
 import akka.stream.Materializer
+import connectors.LibraryConnector
 import org.scalatest.concurrent.{Eventually, ScalaFutures}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -15,14 +16,21 @@ import play.api.test.CSRFTokenHelper.CSRFFRequestHeader
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{GET, POST}
 import repositories.BookRepository
+import services.LibraryService
 
-trait BaseSpec extends AnyWordSpec with Matchers with GuiceOneServerPerSuite with BeforeAndAfterEach with BeforeAndAfterAll with Eventually
+import scala.concurrent.ExecutionContext
 
-trait BaseSpecWithApplication extends BaseSpec with GuiceOneServerPerSuite with ScalaFutures {
+trait BaseSpec extends AnyWordSpec with Matchers
+
+trait BaseSpecWithApplication extends BaseSpec with GuiceOneServerPerSuite with ScalaFutures with BeforeAndAfterEach with BeforeAndAfterAll with Eventually {
 
   implicit val mat: Materializer = app.materializer
-  lazy val component = injector.instanceOf[MessagesControllerComponents]
-  lazy val repository = injector.instanceOf[BookRepository]
+  implicit val executionContext: ExecutionContext = app.injector.instanceOf[ExecutionContext]
+
+  lazy val component: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+  lazy val repository: BookRepository = injector.instanceOf[BookRepository]
+  lazy val service: LibraryService = injector.instanceOf[LibraryService]
+  lazy val connector: LibraryConnector = injector.instanceOf[LibraryConnector]
 
   implicit val messagesApi = app.injector.instanceOf[MessagesApi]
   lazy val injector: Injector = app.injector

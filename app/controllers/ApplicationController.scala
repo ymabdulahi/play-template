@@ -21,19 +21,23 @@ import org.mongodb.scala.Document
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import play.api.mvc.{Action, AnyContent, BaseController, ControllerComponents}
 import repositories.BookRepository
+import services.LibraryService
 
 import javax.inject.{Inject, Singleton}
 import scala.concurrent.{ExecutionContext, Future}
 
 @Singleton
 class ApplicationController @Inject()(
-                                       val controllerComponents: ControllerComponents,
-                                       dataRepository: BookRepository)(
+    dataRepository: BookRepository,
+    service: LibraryService,
+    val controllerComponents: ControllerComponents
+                                     )(
                                        implicit val ec: ExecutionContext) extends BaseController {
 
   def index(): Action[AnyContent] = Action.async { implicit request =>
-      Future(Ok)
-    }
+    val books: Future[Seq[Book]] = dataRepository.collection.find().toFuture()
+    books.map(items => Json.toJson(items)).map(result => Ok(result))
+  }
 
   def create: Action[JsValue] = Action.async(parse.json) { implicit request =>
     request.body.validate[Book] match {
@@ -78,17 +82,17 @@ class ApplicationController @Inject()(
     dataRepository.deleteAll().map(_ => Accepted)
   }
 
-  def find(id: String): Action[AnyContent] = Action.async { implicit request =>
-    dataRepository.find(id).map {
+  def read(id: String): Action[AnyContent] = Action.async { implicit request =>
+    dataRepository.read(id).map {
       case Left(_) => BadRequest
       case Right(value) => Ok(Json.toJson(value))
     }
   }
 
-  def findByBook(): Action[JsValue] = Action.async(parse.json) { implicit request =>
+  def readByBook(): Action[JsValue] = Action.async(parse.json) { implicit request =>
     request.body.validate[Book] match {
       case JsSuccess(book, _) =>
-        dataRepository.find(book).map {
+        dataRepository.read(book).map {
           case Right(value) =>
             Ok(s"Model Found: ${Json.toJson(value)}")
           case Left(value) =>
@@ -103,6 +107,12 @@ class ApplicationController @Inject()(
             ))
         }
       case JsError(_) => Future(BadRequest)
+    }
+  }
+
+  def getGoogleBook(search: String, term: String): Action[AnyContent] = Action.async { implicit request =>
+    service.getBookFromGoogle(search = search, term = term).map { book =>
+      Ok(Json.toJson(book))
     }
   }
 }

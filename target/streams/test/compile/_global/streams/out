@@ -1,5 +1,6 @@
-[0m[[0m[33mwarn[0m] [0m[0m/Users/vinniebrice/gradsProject/test/controllers/ApplicationControllerSpec.scala:85:37: match may not be exhaustive.[0m
-[0m[[0m[33mwarn[0m] [0m[0mIt would fail on the following input: Left(_)[0m
-[0m[[0m[33mwarn[0m] [0m[0m      repository.find("someId").map {[0m
-[0m[[0m[33mwarn[0m] [0m[0m                                    ^[0m
-[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[31merror[0m] [0m[0m/Users/vinniebrice/gradsProject/test/services/LibraryServiceSpec.scala:40:16: missing argument list for method whenReady in trait Futures[0m
+[0m[[0m[31merror[0m] [0m[0mUnapplied methods are only converted to functions when a function type is expected.[0m
+[0m[[0m[31merror[0m] [0m[0mYou can make this conversion explicit by writing `whenReady _` or `whenReady(_)(_)(_,_)` instead of `whenReady`.[0m
+[0m[[0m[31merror[0m] [0m[0m      whenReady(TestService.getBookFromGoogle(search = "", term = "")) shouldBe 1[0m
+[0m[[0m[31merror[0m] [0m[0m               ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m

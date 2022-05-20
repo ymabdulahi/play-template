@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/vinniebrice/gradsProject/conf/routes
-// @DATE:Thu May 12 15:50:39 BST 2022
+// @DATE:Fri May 20 16:51:39 BST 2022
 
 package router
 
@@ -17,7 +17,7 @@ class Routes(
   HomeController_2: controllers.HomeController,
   // @LINE:4
   ApplicationController_0: controllers.ApplicationController,
-  // @LINE:14
+  // @LINE:15
   Assets_1: controllers.Assets,
   val prefix: String
 ) extends GeneratedRouter {
@@ -28,7 +28,7 @@ class Routes(
     HomeController_2: controllers.HomeController,
     // @LINE:4
     ApplicationController_0: controllers.ApplicationController,
-    // @LINE:14
+    // @LINE:15
     Assets_1: controllers.Assets
   ) = this(errorHandler, HomeController_2, ApplicationController_0, Assets_1, "/")
 
@@ -46,12 +46,13 @@ class Routes(
     ("""GET""", this.prefix, """controllers.HomeController.index()"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library""", """controllers.ApplicationController.index()"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library""", """controllers.ApplicationController.create()"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/""" + "$" + """id<[^/]+>""", """controllers.ApplicationController.find(id:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/""" + "$" + """id<[^/]+>""", """controllers.ApplicationController.read(id:String)"""),
     ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/""" + "$" + """id<[^/]+>""", """controllers.ApplicationController.update(id:String)"""),
     ("""PUT""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/""" + "$" + """id<[^/]+>""", """controllers.ApplicationController.upsert(id:String)"""),
     ("""DELETE""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/""" + "$" + """id<[^/]+>""", """controllers.ApplicationController.delete(id:String)"""),
     ("""DELETE""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/allBook""", """controllers.ApplicationController.deleteAll"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/byBook""", """controllers.ApplicationController.findByBook"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/byBook""", """controllers.ApplicationController.readByBook"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """library/google/book/""" + "$" + """search<[^/]+>/""" + "$" + """term<[^/]+>""", """controllers.ApplicationController.getGoogleBook(search:String, term:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
@@ -115,15 +116,15 @@ class Routes(
   )
 
   // @LINE:6
-  private[this] lazy val controllers_ApplicationController_find3_route = Route("GET",
+  private[this] lazy val controllers_ApplicationController_read3_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("library/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_ApplicationController_find3_invoker = createInvoker(
-    ApplicationController_0.find(fakeValue[String]),
+  private[this] lazy val controllers_ApplicationController_read3_invoker = createInvoker(
+    ApplicationController_0.read(fakeValue[String]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.ApplicationController",
-      "find",
+      "read",
       Seq(classOf[String]),
       "GET",
       this.prefix + """library/""" + "$" + """id<[^/]+>""",
@@ -205,15 +206,15 @@ class Routes(
   )
 
   // @LINE:11
-  private[this] lazy val controllers_ApplicationController_findByBook8_route = Route("GET",
+  private[this] lazy val controllers_ApplicationController_readByBook8_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("library/byBook")))
   )
-  private[this] lazy val controllers_ApplicationController_findByBook8_invoker = createInvoker(
-    ApplicationController_0.findByBook,
+  private[this] lazy val controllers_ApplicationController_readByBook8_invoker = createInvoker(
+    ApplicationController_0.readByBook,
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.ApplicationController",
-      "findByBook",
+      "readByBook",
       Nil,
       "GET",
       this.prefix + """library/byBook""",
@@ -222,11 +223,29 @@ class Routes(
     )
   )
 
-  // @LINE:14
-  private[this] lazy val controllers_Assets_versioned9_route = Route("GET",
+  // @LINE:12
+  private[this] lazy val controllers_ApplicationController_getGoogleBook9_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("library/google/book/"), DynamicPart("search", """[^/]+""",true), StaticPart("/"), DynamicPart("term", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_ApplicationController_getGoogleBook9_invoker = createInvoker(
+    ApplicationController_0.getGoogleBook(fakeValue[String], fakeValue[String]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.ApplicationController",
+      "getGoogleBook",
+      Seq(classOf[String], classOf[String]),
+      "GET",
+      this.prefix + """library/google/book/""" + "$" + """search<[^/]+>/""" + "$" + """term<[^/]+>""",
+      """""",
+      Seq()
+    )
+  )
+
+  // @LINE:15
+  private[this] lazy val controllers_Assets_versioned10_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("assets/"), DynamicPart("file", """.+""",false)))
   )
-  private[this] lazy val controllers_Assets_versioned9_invoker = createInvoker(
+  private[this] lazy val controllers_Assets_versioned10_invoker = createInvoker(
     Assets_1.versioned(fakeValue[String], fakeValue[Asset]),
     play.api.routing.HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -262,9 +281,9 @@ class Routes(
       }
   
     // @LINE:6
-    case controllers_ApplicationController_find3_route(params@_) =>
+    case controllers_ApplicationController_read3_route(params@_) =>
       call(params.fromPath[String]("id", None)) { (id) =>
-        controllers_ApplicationController_find3_invoker.call(ApplicationController_0.find(id))
+        controllers_ApplicationController_read3_invoker.call(ApplicationController_0.read(id))
       }
   
     // @LINE:7
@@ -292,15 +311,21 @@ class Routes(
       }
   
     // @LINE:11
-    case controllers_ApplicationController_findByBook8_route(params@_) =>
+    case controllers_ApplicationController_readByBook8_route(params@_) =>
       call { 
-        controllers_ApplicationController_findByBook8_invoker.call(ApplicationController_0.findByBook)
+        controllers_ApplicationController_readByBook8_invoker.call(ApplicationController_0.readByBook)
       }
   
-    // @LINE:14
-    case controllers_Assets_versioned9_route(params@_) =>
+    // @LINE:12
+    case controllers_ApplicationController_getGoogleBook9_route(params@_) =>
+      call(params.fromPath[String]("search", None), params.fromPath[String]("term", None)) { (search, term) =>
+        controllers_ApplicationController_getGoogleBook9_invoker.call(ApplicationController_0.getGoogleBook(search, term))
+      }
+  
+    // @LINE:15
+    case controllers_Assets_versioned10_route(params@_) =>
       call(Param[String]("path", Right("/public")), params.fromPath[Asset]("file", None)) { (path, file) =>
-        controllers_Assets_versioned9_invoker.call(Assets_1.versioned(path, file))
+        controllers_Assets_versioned10_invoker.call(Assets_1.versioned(path, file))
       }
   }
 }

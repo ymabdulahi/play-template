@@ -18,24 +18,20 @@ package controllers
 
 import baseSpec.BaseSpecWithApplication
 import models.{APIError, Author, Book}
-import org.scalamock.scalatest.MockFactory
-import org.scalatest.concurrent.ScalaFutures
 import play.api.http.Status
 import play.api.libs.json._
 import play.api.mvc.Result
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{await, defaultAwaitTimeout, status}
+import play.api.test.Helpers.{await, contentAsJson, defaultAwaitTimeout, status}
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class ApplicationControllerSpec extends BaseSpecWithApplication with ScalaFutures with MockFactory {
-
-
-  implicit val executionContext: ExecutionContext = app.injector.instanceOf[ExecutionContext]
+class ApplicationControllerSpec extends BaseSpecWithApplication {
 
   val TestApplicationController = new ApplicationController(
-    component,
-    repository
+    repository,
+    service,
+    component
   )
 
   val gameOfThrones: JsValue = Json.obj(
@@ -52,9 +48,14 @@ class ApplicationControllerSpec extends BaseSpecWithApplication with ScalaFuture
   "ApplicationController .index" should {
 
     "return OK" in {
+      val request: FakeRequest[JsValue] = buildPost("/library").withBody[JsValue](gameOfThrones)
+      val createdResult = TestApplicationController.create(request)
+
+      status(createdResult) shouldBe Status.CREATED
 
       val result = TestApplicationController.index()(FakeRequest())
        status(result) shouldBe Status.OK
+      println(contentAsJson(result))
     }
 
     "load the main page" in {}
@@ -102,7 +103,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication with ScalaFuture
 
       status(createdResult) shouldBe Status.CREATED
 
-      val foundResult: Future[Either[APIError, Book]] = repository.find("someId")
+      val foundResult: Future[Either[APIError, Book]] = repository.read("someId")
 
       await(foundResult) shouldBe Right(gameOfThrones.as[Book])
     }
@@ -116,7 +117,9 @@ class ApplicationControllerSpec extends BaseSpecWithApplication with ScalaFuture
 
   "ApplicationController .update" should {
 
-    "update a book's name by their id" in {}
+    "update a book's name by their id" in {
+
+    }
 
     "return an error when an id doesn't exist" in {}
 

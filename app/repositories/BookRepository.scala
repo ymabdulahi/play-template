@@ -38,7 +38,7 @@ class BookRepository @Inject()(
       Filters.equal("book", book)
     )
 
-  def find(book: Book): Future[Either[APIError, Book]] =
+  def read(book: Book): Future[Either[APIError, Book]] =
     collection.find(byBook(book)).headOption flatMap {
       case Some(data) =>
         Future(Right(data))
@@ -46,7 +46,7 @@ class BookRepository @Inject()(
         Future(Left(BookNotFound()))
     }
 
-  def find(id: String): Future[Either[APIError, Book]] =
+  def read(id: String): Future[Either[APIError, Book]] =
     collection.find(byID(id)).headOption flatMap {
       case Some(data) =>
         Future(Right(data))

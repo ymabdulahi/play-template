@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/vinniebrice/gradsProject/conf/routes
-// @DATE:Thu May 12 15:50:39 BST 2022
+// @DATE:Fri May 20 16:51:39 BST 2022
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -18,12 +18,12 @@ package controllers.javascript {
     }
 
   
-    // @LINE:11
-    def findByBook: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.ApplicationController.findByBook",
+    // @LINE:6
+    def read: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.read",
       """
-        function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/byBook"})
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
         }
       """
     )
@@ -38,12 +38,22 @@ package controllers.javascript {
       """
     )
   
-    // @LINE:6
-    def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.ApplicationController.find",
+    // @LINE:12
+    def getGoogleBook: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.getGoogleBook",
       """
-        function(id0) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+        function(search0,term1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/google/book/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("search", search0)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("term", term1))})
+        }
+      """
+    )
+  
+    // @LINE:11
+    def readByBook: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.ApplicationController.readByBook",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/byBook"})
         }
       """
     )
@@ -120,7 +130,7 @@ package controllers.javascript {
   
   }
 
-  // @LINE:14
+  // @LINE:15
   class ReverseAssets(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -128,7 +138,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:14
+    // @LINE:15
     def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.versioned",
       """

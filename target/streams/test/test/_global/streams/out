@@ -1,18 +1,22 @@
 [0m[[0m[0mdebug[0m] [0m[0mjavaOptions: Vector()[0m
 [0m[[0m[0mdebug[0m] [0m[0mForking tests - parallelism = false[0m
 [0m[[0m[0mdebug[0m] [0m[0mCreate a single-thread test executor[0m
-[0m[[0m[0mdebug[0m] [0m[0mRunner for org.scalatest.tools.Framework produced 2 initial tasks for 2 tests.[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.HomeControllerSpec, sbt.ForkMain$SubclassFingerscan@2103ab06, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0mRunner for org.scalatest.tools.Framework produced 4 initial tasks for 4 tests.[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.ApplicationControllerMockitoSpec, sbt.ForkMain$SubclassFingerscan@28d86cb4, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mApplicationControllerMockitoSpec:[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(services.LibraryService, sbt.ForkMain$SubclassFingerscan@7b78742d, false, [SuiteSelector])[0m
+[0m[[0m[0minfo[0m] [0m[0m[32mLibraryService:[0m[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.HomeControllerSpec, sbt.ForkMain$SubclassFingerscan@5d2a3770, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mHomeControllerSpec:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mHomeController GET[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[31m- should render the index page from a new instance of controller *** FAILED ***[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  None was not equal to Some("text/html") (HomeControllerSpec.scala:27)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  None was not equal to Some("text/html") (HomeControllerSpec.scala:28)[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[31m- should render the index page from the application *** FAILED ***[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  None was not equal to Some("text/html") (HomeControllerSpec.scala:36)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  None was not equal to Some("text/html") (HomeControllerSpec.scala:37)[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[31m- should render the index page from the router *** FAILED ***[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[31m  400 was not equal to 200 (HomeControllerSpec.scala:44)[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[31m  400 was not equal to 200 (HomeControllerSpec.scala:45)[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 3 events.[0m
-[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.ApplicationControllerSpec, sbt.ForkMain$SubclassFingerscan@40f61500, false, [SuiteSelector])[0m
+[0m[[0m[0mdebug[0m] [0m[0m  Running TaskDef(controllers.ApplicationControllerSpec, sbt.ForkMain$SubclassFingerscan@9c6d083, false, [SuiteSelector])[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mApplicationControllerSpec:[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32mApplicationController .index[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[32m- should return OK[0m[0m
@@ -45,15 +49,17 @@
 [0m[[0m[0mdebug[0m] [0m[0m    Produced 0 nested tasks and 21 events.[0m
 [0m[[0m[0mdebug[0m] [0m[0mRunner for com.novocode.junit.JUnitFramework produced 0 initial tasks for 0 tests.[0m
 [0m[[0m[0minfo[0m] [0m[0mScalaTest[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 8 seconds, 789 milliseconds.[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mRun completed in 10 seconds, 27 milliseconds.[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTotal number of tests run: 24[0m[0m
-[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 2, aborted 0[0m[0m
+[0m[[0m[0minfo[0m] [0m[0m[36mSuites: completed 4, aborted 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[36mTests: succeeded 21, failed 3, canceled 0, ignored 0, pending 0[0m[0m
 [0m[[0m[0minfo[0m] [0m[0m[31m*** 3 TESTS FAILED ***[0m[0m
 [0m[[0m[0mdebug[0m] [0m[0mSummary for JUnit not available.[0m
 [0m[[0m[31merror[0m] [0m[0mFailed: Total 24, Failed 3, Errors 0, Passed 21[0m
 [0m[[0m[0mdebug[0m] [0m[0mPassed tests:[0m
 [0m[[0m[0mdebug[0m] [0m[0m	controllers.ApplicationControllerSpec[0m
+[0m[[0m[0mdebug[0m] [0m[0m	services.LibraryService[0m
+[0m[[0m[0mdebug[0m] [0m[0m	controllers.ApplicationControllerMockitoSpec[0m
 [0m[[0m[31merror[0m] [0m[0mFailed tests:[0m
 [0m[[0m[31merror[0m] [0m[0m	controllers.HomeControllerSpec[0m
 [0m[[0m[31merror[0m] [0m[0m(Test / [31mtest[0m) sbt.TestsFailedException: Tests unsuccessful[0m

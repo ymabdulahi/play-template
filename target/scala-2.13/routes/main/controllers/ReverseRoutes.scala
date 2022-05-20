@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/vinniebrice/gradsProject/conf/routes
-// @DATE:Thu May 12 15:50:39 BST 2022
+// @DATE:Fri May 20 16:51:39 BST 2022
 
 import play.api.mvc.Call
 
@@ -17,10 +17,10 @@ package controllers {
     }
 
   
-    // @LINE:11
-    def findByBook(): Call = {
+    // @LINE:6
+    def read(id:String): Call = {
       
-      Call("GET", _prefix + { _defaultPrefix } + "library/byBook")
+      Call("GET", _prefix + { _defaultPrefix } + "library/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
     }
   
     // @LINE:5
@@ -29,10 +29,16 @@ package controllers {
       Call("POST", _prefix + { _defaultPrefix } + "library")
     }
   
-    // @LINE:6
-    def find(id:String): Call = {
+    // @LINE:12
+    def getGoogleBook(search:String, term:String): Call = {
       
-      Call("GET", _prefix + { _defaultPrefix } + "library/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("id", id)))
+      Call("GET", _prefix + { _defaultPrefix } + "library/google/book/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("search", search)) + "/" + play.core.routing.dynamicString(implicitly[play.api.mvc.PathBindable[String]].unbind("term", term)))
+    }
+  
+    // @LINE:11
+    def readByBook(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "library/byBook")
     }
   
     // @LINE:10
@@ -82,14 +88,14 @@ package controllers {
   
   }
 
-  // @LINE:14
+  // @LINE:15
   class ReverseAssets(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:14
+    // @LINE:15
     def versioned(file:Asset): Call = {
       implicit lazy val _rrc = new play.core.routing.ReverseRouteContext(Map(("path", "/public"))); _rrc
       Call("GET", _prefix + { _defaultPrefix } + "assets/" + implicitly[play.api.mvc.PathBindable[Asset]].unbind("file", file))
