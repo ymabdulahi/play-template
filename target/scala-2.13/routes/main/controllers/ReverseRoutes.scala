@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/Users/vinniebrice/gradsProject/conf/routes
-// @DATE:Mon May 23 17:08:12 BST 2022
+// @SOURCE:/Users/vinniebrice/induction/play-template/conf/routes
+// @DATE:Mon May 23 22:16:23 BST 2022
 
 import play.api.mvc.Call
 
