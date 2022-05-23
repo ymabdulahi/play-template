@@ -24,11 +24,10 @@ object Author {
   implicit val formats: OFormat[Author] = Json.format[Author]
 }
 
-case class Book(bookId: String,
+case class Book(_id: String,
                 name: String,
-                author: Author,
                 description: String,
-                numInStock: Int)
+                numSales: Int)
 
 object Book {
   implicit val formats: OFormat[Book] = Json.format[Book]

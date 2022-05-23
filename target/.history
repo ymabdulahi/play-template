@@ -71,3 +71,10 @@ testOnly *LibraryServiceSpec*
 reload
 test
 testOnly *LibraryServiceSpec*
+test
+run
+test
+clean
+test
+clean
+test

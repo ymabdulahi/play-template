@@ -17,10 +17,10 @@
 package controllers
 
 import baseSpec.BaseSpecWithApplication
-import models.{APIError, Author, Book}
+import models.{RepositoryError, Author, Book}
 import play.api.http.Status
 import play.api.libs.json._
-import play.api.mvc.Result
+import play.api.mvc.{Action, AnyContent, Result}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{await, contentAsJson, defaultAwaitTimeout, status}
 
@@ -34,21 +34,17 @@ class ApplicationControllerSpec extends BaseSpecWithApplication {
     component
   )
 
-  val gameOfThrones: JsValue = Json.obj(
-    "bookId" -> "someId",
+  private val gameOfThrones: JsValue = Json.obj(
+    "_id" -> "someId",
     "name" -> "A Game of Thrones",
-    "author" -> Json.obj(
-      "firstNames" -> "George R. R.",
-      "lastName" -> "Martin"
-    ),
     "description" -> "The best book!!!",
-    "numInStock" -> 100
+    "numSales" -> 100
   )
 
   "ApplicationController .index" should {
 
     "return OK" in {
-      val request: FakeRequest[JsValue] = buildPost("/library").withBody[JsValue](gameOfThrones)
+      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](gameOfThrones)
       val createdResult = TestApplicationController.create(request)
 
       status(createdResult) shouldBe Status.CREATED
@@ -65,7 +61,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication {
 
     "create a book in the database" in {
 
-      val request: FakeRequest[JsValue] = buildPost("/library").withBody[JsValue](gameOfThrones)
+      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](gameOfThrones)
       val createdResult: Future[Result] = TestApplicationController.create(request)
 
       status(createdResult) shouldBe Status.CREATED
@@ -76,7 +72,7 @@ class ApplicationControllerSpec extends BaseSpecWithApplication {
     "validate a json body" in {
       gameOfThrones.validate[Book].shouldBe(
         JsSuccess(
-          Book("someId", "A Game of Thrones", Author("George R. R.","Martin"), "The best book!!!", 100),
+          Book("someId", "A Game of Thrones", "The best book!!!", 100),
           JsPath(Nil)
         )
       )
@@ -94,18 +90,21 @@ class ApplicationControllerSpec extends BaseSpecWithApplication {
     }
   }
 
-  "ApplicationController .find" should { //(Hint: You're probably going to need to create in the database before you can find)
+  "ApplicationController .read" should { //(Hint: You're probably going to need to create in the database before you can find)
 
     "find a book in the database by id" in {
+      beforeEach
 
-      val request: FakeRequest[JsValue] = buildPost("/library").withBody[JsValue](gameOfThrones)
+      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](gameOfThrones)
       val createdResult: Future[Result] = TestApplicationController.create(request)
 
       status(createdResult) shouldBe Status.CREATED
 
-      val foundResult: Future[Either[APIError, Book]] = repository.read("someId")
+      val foundResult: Future[Either[RepositoryError, Book]] = repository.read("someId")
 
-      await(foundResult) shouldBe Right(gameOfThrones.as[Book])
+      val readResult: Future[Result] = TestApplicationController.read("someId")(FakeRequest())
+      contentAsJson(readResult).as[Book] shouldBe gameOfThrones.as[Book]
+
     }
 
     "find a book in the database by book" in {}

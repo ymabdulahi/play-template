@@ -11,9 +11,11 @@ lazy val root = (project in file("."))
 
 resolvers += "HMRC-open-artefacts-maven2" at "https://open.artefacts.tax.service.gov.uk/maven2"
 
-libraryDependencies += (
-  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-play-28"   % "0.63.0"
+libraryDependencies ++= Seq(
+  "uk.gov.hmrc.mongo"      %% "hmrc-mongo-play-28"   % "0.63.0",
+  "org.typelevel"                %% "cats-core"                 % "2.3.0"
   )
+
 
 libraryDependencies ++= Seq(
   guice,

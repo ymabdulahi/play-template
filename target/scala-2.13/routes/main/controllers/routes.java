@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/vinniebrice/gradsProject/conf/routes
-// @DATE:Fri May 20 16:51:39 BST 2022
+// @DATE:Mon May 23 17:08:12 BST 2022
 
 package controllers;
 

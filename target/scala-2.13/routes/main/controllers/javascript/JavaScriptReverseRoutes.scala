@@ -1,6 +1,6 @@
 // @GENERATOR:play-routes-compiler
 // @SOURCE:/Users/vinniebrice/gradsProject/conf/routes
-// @DATE:Fri May 20 16:51:39 BST 2022
+// @DATE:Mon May 23 17:08:12 BST 2022
 
 import play.api.routing.JavaScriptReverseRoute
 
@@ -23,7 +23,7 @@ package controllers.javascript {
       "controllers.ApplicationController.read",
       """
         function(id0) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
         }
       """
     )
@@ -33,7 +33,7 @@ package controllers.javascript {
       "controllers.ApplicationController.create",
       """
         function() {
-          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "library"})
+          return _wA({method:"POST", url:"""" + _prefix + { _defaultPrefix } + """" + "api"})
         }
       """
     )
@@ -43,7 +43,7 @@ package controllers.javascript {
       "controllers.ApplicationController.getGoogleBook",
       """
         function(search0,term1) {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/google/book/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("search", search0)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("term", term1))})
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/google/book/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("search", search0)) + "/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("term", term1))})
         }
       """
     )
@@ -53,7 +53,7 @@ package controllers.javascript {
       "controllers.ApplicationController.readByBook",
       """
         function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library/byBook"})
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api/byBook"})
         }
       """
     )
@@ -63,7 +63,7 @@ package controllers.javascript {
       "controllers.ApplicationController.deleteAll",
       """
         function() {
-          return _wA({method:"DELETE", url:"""" + _prefix + { _defaultPrefix } + """" + "library/allBook"})
+          return _wA({method:"DELETE", url:"""" + _prefix + { _defaultPrefix } + """" + "api/allBook"})
         }
       """
     )
@@ -73,7 +73,7 @@ package controllers.javascript {
       "controllers.ApplicationController.delete",
       """
         function(id0) {
-          return _wA({method:"DELETE", url:"""" + _prefix + { _defaultPrefix } + """" + "library/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+          return _wA({method:"DELETE", url:"""" + _prefix + { _defaultPrefix } + """" + "api/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
         }
       """
     )
@@ -83,7 +83,7 @@ package controllers.javascript {
       "controllers.ApplicationController.update",
       """
         function(id0) {
-          return _wA({method:"PUT", url:"""" + _prefix + { _defaultPrefix } + """" + "library/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+          return _wA({method:"PUT", url:"""" + _prefix + { _defaultPrefix } + """" + "api/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
         }
       """
     )
@@ -93,7 +93,7 @@ package controllers.javascript {
       "controllers.ApplicationController.upsert",
       """
         function(id0) {
-          return _wA({method:"PUT", url:"""" + _prefix + { _defaultPrefix } + """" + "library/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
+          return _wA({method:"PUT", url:"""" + _prefix + { _defaultPrefix } + """" + "api/" + encodeURIComponent((""" + implicitly[play.api.mvc.PathBindable[String]].javascriptUnbind + """)("id", id0))})
         }
       """
     )
@@ -103,7 +103,7 @@ package controllers.javascript {
       "controllers.ApplicationController.index",
       """
         function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "library"})
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "api"})
         }
       """
     )

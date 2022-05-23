@@ -111,8 +111,9 @@ class ApplicationController @Inject()(
   }
 
   def getGoogleBook(search: String, term: String): Action[AnyContent] = Action.async { implicit request =>
-    service.getBookFromGoogle(search = search, term = term).map { book =>
-      Ok(Json.toJson(book))
+    service.getGoogleBook(search = search, term = term).value.map {
+      case Right(book) => ???
+      case Left(error) => ???
     }
   }
 }
