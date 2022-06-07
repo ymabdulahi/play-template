@@ -1,4 +1,4 @@
 [debug] "not up to date. inChanged = true, force = false
-[debug] Updating ProjectRef(uri("file:/Users/vinniebrice/induction/play-template/"), "root")...
-[debug] Done updating ProjectRef(uri("file:/Users/vinniebrice/induction/play-template/"), "root")
+[debug] Updating ProjectRef(uri("file:/Users/yonis.abdulahi/Documents/play/play-template/"), "root")...
+[debug] Done updating ProjectRef(uri("file:/Users/yonis.abdulahi/Documents/play/play-template/"), "root")
 [warn] There may be incompatibilities among your library dependencies; run 'evicted' to see detailed eviction warnings.
