@@ -47,18 +47,23 @@ class ApplicationControllerSpec extends BaseSpecWithApplication {
   // We have created a happy path case for two of the controller methods > .create and .read
   "ApplicationController .read" should {
 
-    "find a book in the database by id" in {
+    "find a book in the database by id" in "ApplicationController .read()" should {
+      beforeEach()
+      "find a book in the database by id" in {
 
-      val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
-      val createdResult: Future[Result] = TestApplicationController.create()(request)
-      //Hint: You could use status(createdResult) shouldBe Status.CREATED to check this has worked again
-      status(createdResult)(defaultAwaitTimeout) shouldBe Status.CREATED
-      val readRequest: FakeRequest[AnyContentAsEmpty.type] = buildGet("/api/:id")
-      val readResult: Future[Result] = TestApplicationController.read("abcd")(readRequest)
-      status(readResult)(defaultAwaitTimeout) shouldBe Status.OK
-      contentAsJson(readResult)(defaultAwaitTimeout).as[JsValue] shouldBe Json.toJson(dataModel)
+        val request: FakeRequest[JsValue] = buildPost("/api/create").withBody[JsValue](Json.toJson(dataModel))
+        //val readRequest: FakeRequest[AnyContentAsEmpty.type ] = buildGet("/api/:id")
+        val createdResult: Future[Result] = TestApplicationController.create()(request)
+        //val readResult: Future[Result] = TestApplicationController.read("abcd")(readRequest) //need to uncomment readRequest
+        val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest()) // works without having readRequest
+
+        status(createdResult) shouldBe Status.CREATED
+        status(readResult) shouldBe Status.OK
+        contentAsJson(readResult).as[DataModel] shouldBe DataModel(dataModel)
+
+      }
+      afterEach()
     }
-  }
 
   "ApplicationController .update(id: String, newData: DataModel)" should {
 
@@ -67,10 +72,8 @@ class ApplicationControllerSpec extends BaseSpecWithApplication {
       val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
       val createdResult: Future[Result] = TestApplicationController.create()(request)
       status(createdResult)(defaultAwaitTimeout) shouldBe Status.CREATED
-      val updateRequest: FakeRequest[JsValue] = buildPut("/api/:id").withBody[JsValue](Json.toJson(updatedDataModel))
-      val updateResult: Future[Result] = TestApplicationController.update("abcd")(updateRequest)
-      status(updateResult)(defaultAwaitTimeout) shouldBe Status.ACCEPTED
-      contentAsJson(updateResult)(defaultAwaitTimeout).as[JsValue] shouldBe Json.toJson(updatedDataModel)
+
+
     }
   }
 
@@ -79,15 +82,18 @@ class ApplicationControllerSpec extends BaseSpecWithApplication {
     "delete a book in the database by id" in {
 
       val request: FakeRequest[JsValue] = buildPost("/api").withBody[JsValue](Json.toJson(dataModel))
+      val deleteRequest: FakeRequest[AnyContentAsEmpty.type ] = buildDelete("/api/:id")
       val createdResult: Future[Result] = TestApplicationController.create()(request)
-      status(createdResult)(defaultAwaitTimeout) shouldBe Status.CREATED
-      val deleteRequest: FakeRequest[AnyContentAsEmpty.type] = buildDelete("/api/:id")
       val deleteResult: Future[Result] = TestApplicationController.delete("abcd")(deleteRequest)
-      status(deleteResult)(defaultAwaitTimeout) shouldBe Status.ACCEPTED
+
+      status(createdResult) shouldBe Status.CREATED
+      status(deleteResult) shouldBe Status.ACCEPTED
     }
+    afterEach()
   }
 
-  // They will delete the contents of the repository before and after each test.
+
+    // They will delete the contents of the repository before and after each test.
   override def beforeEach(): Unit = repository.deleteAll()
   override def afterEach(): Unit = repository.deleteAll()
 }
