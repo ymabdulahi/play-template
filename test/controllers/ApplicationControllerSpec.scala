@@ -52,9 +52,8 @@ class ApplicationControllerSpec extends BaseSpecWithApplication {
       "find a book in the database by id" in {
 
         val request: FakeRequest[JsValue] = buildPost("/api/create").withBody[JsValue](Json.toJson(dataModel))
-        //val readRequest: FakeRequest[AnyContentAsEmpty.type ] = buildGet("/api/:id")
         val createdResult: Future[Result] = TestApplicationController.create()(request)
-        //val readResult: Future[Result] = TestApplicationController.read("abcd")(readRequest) //need to uncomment readRequest
+
         val readResult: Future[Result] = TestApplicationController.read("abcd")(FakeRequest()) // works without having readRequest
 
         status(createdResult) shouldBe Status.CREATED
